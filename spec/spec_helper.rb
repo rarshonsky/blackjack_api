@@ -1,9 +1,11 @@
 require 'rubygems'
+require 'factory_girl'
+
 
 ENV['RAILS_ENV'] = 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
-
+#Dir[Rails.root.join("spec/factories/**/*.rb")].each {|f| require f}
 require 'rspec/rails'
 RSpec.configure do |config|
   config.mock_with :rspec

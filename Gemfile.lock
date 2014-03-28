@@ -70,6 +70,11 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     ffi (1.9.3)
     ffi (1.9.3-java)
     hashie (2.0.5)
@@ -191,6 +196,8 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.1.0)
   coffee-rails (~> 4.0.0)
+  factory_girl
+  factory_girl_rails
   grape!
   jquery-rails (~> 3.0.0)
   rails (~> 4.0.2)

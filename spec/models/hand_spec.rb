@@ -1,19 +1,33 @@
 require 'spec_helper'
 
 describe Hand do
+  before do
+    @hand = FactoryGirl.build(:hand)
+    @ace = FactoryGirl.build(:ace)
+    @jack = FactoryGirl.build(:jack)
+    @seven = FactoryGirl.build(:seven)
+  end
 
-  let(:jack) { Card.new(suit:'D',value: 10, sym: 'j')}
-  let(:seven) { Card.new(suit:'D',value: 7, sym: '7')}
-  let(:ace) { Card.new(suit:'C',value: 11, sym: 'a')}
-  let(:hand) {  build(:hand) }
+  after do
+    @hand = FactoryGirl.build(:hand)
+  end
 
-  describe "total no ace" do
-    hand = Hand.new cards: []
-    jack = Card.new(suit:'D',value: 10, sym: 'j')
-    seven = Card.new(suit:'D',value: 7, sym: '7')
-    hand.add_card jack
-    hand.add_card seven
-    hand.total.should == 17
+  describe "total" do
+    it 'should have a hard ace' do
+      @hand.add_card @ace
+      @hand.add_card @seven
+      @hand.total.should == 18
+    end
+
+    it 'should have a soft ace' do
+      #@hand.add_card @ace
+      @hand.add_card @seven
+      @hand.add_card @jack
+      @hand.total.should == 18
+    end
+
+
+
 
   end
 

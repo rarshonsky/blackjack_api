@@ -15,6 +15,7 @@ class Hand
     end
 
     aces = self.cards.select {|c| c.sym == 'a'}
+    puts aces: aces
     if aces.size > 0 && total < 12
       aces.first.value = 11
       total += 10

@@ -23,12 +23,10 @@ class Game
 
   def player_hit
     self.player_hand.add_card self.deck.next
-    self.player_hand.bust?
   end
 
   def dealer_hit
     self.dealer_hand.add_card self.deck.next
-    self.dealer_hand.bust?
   end
 
   def dealer_plays

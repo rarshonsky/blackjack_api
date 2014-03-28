@@ -27,6 +27,11 @@ module GrapeOnRails
     config.paths.add 'app/api', glob: '**/*.rb'
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
 
+    config.generators do |g|
+      g.test_framework  :rspec, :fixture => true
+      g.fixture_replacement :factory_girl, :dir=>"spec/factories"
+    end
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

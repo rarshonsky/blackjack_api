@@ -15,6 +15,8 @@ gem 'virtus', '1.0.1'
 group :development, :test do
   gem 'rspec', '~> 2.13.0'
   gem 'rspec-rails', '~> 2.13.1'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'capybara', '~> 2.1.0'
   gem 'selenium-webdriver', '~> 2.33.0'
   gem 'rubocop', '~> 0.16.0'
