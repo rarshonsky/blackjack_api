@@ -3,12 +3,14 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0.2'
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'pg'
-gem 'activerecord-jdbcsqlite3-adapter', '~> 1.2.9', :platforms => [ :jruby ]
+#gem 'pg'
+#gem 'activerecord-jdbcsqlite3-adapter', '~> 1.2.9', :platforms => [ :jruby ]
 gem 'jquery-rails', '~> 3.0.0'
 gem 'grape', github: 'intridea/grape'
 gem 'uglifier', '>= 1.0.3'
 gem 'zip-zip', '~> 0.2'
+gem 'virtus', '1.0.1'
+
 
 group :development, :test do
   gem 'rspec', '~> 2.13.0'
