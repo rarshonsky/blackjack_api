@@ -13,7 +13,7 @@ class Game
     self.deck = Deck.new
     self.deck.start
     self.deck.shuffle
-    self.id = 1
+    self.id = SecureRandom.uuid
     self.player_hand = Hand.new({cards: [self.deck.next], stay:false})
     self.dealer_hand = Hand.new({cards: [self.deck.next]})
     player_hit
@@ -40,21 +40,18 @@ class Game
   end
 
   def data
-    self.player_hand.total
-    self.dealer_hand.total
-
     if self.player_hand.bust?
-      return { game_id: self.id, cards: self.player_hand, dealer_cards: self.dealer_hand, player_total: self.player_hand.total, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
     elsif self.dealer_hand.bust?
-      return { game_id: self.id, cards: self.player_hand, dealer_card: self.dealer_hand, player_total: self.player_hand.total, dealer_total: self.dealer_hand.total, winner: 'Player'}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Player'}
     elsif !self.player_hand.stay
-      return { game_id: self.id, cards: self.player_hand, dealer_cards: self.dealer_hand.cards.first}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand.cards.first}
     elsif self.dealer_hand.total > self.player_hand.total
-      return { game_id: self.id, cards: self.player_hand, dealer_card: self.dealer_hand, player_total: self.player_hand.total, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
     elsif self.dealer_hand.total == self.player_hand.total
-      return { game_id: self.id, cards: self.player_hand, dealer_card: self.dealer_hand, player_total: self.player_hand.total, dealer_total: self.dealer_hand.total, winner: 'Push'}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Push'}
     else
-      return { game_id: self.id, cards: self.player_hand, dealer_card: self.dealer_hand, player_total: self.player_hand.total, dealer_total: self.dealer_hand.total, winner: 'Player'}
+      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Player'}
     end
   end
 

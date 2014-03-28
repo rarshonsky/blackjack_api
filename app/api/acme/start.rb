@@ -1,61 +1,42 @@
 module Acme
   class Start < Grape::API
     format :json
-    desc 'Starts the game'
-    params do
-      requires :game_id, type: Integer, desc: "Game ID"
-    end
-    get :start do
-      puts test: params[:game_id]
-      game = Rails.cache.read(params[:game_id])
-      if game != nil
-        puts player_total: game.player_hand.total
-        return game.data
-      end
-      {Error: 'No Game'}
-    end
 
     desc 'Starts the game'
-    post :start do
+    get :start do
+      game_id = cookies[:game_id]
+      game = Rails.cache.read game_id
+      if game_id == nil || game == nil
         game = Game.new
         game.start
+        cookies[:game_id] = game.id
         Rails.cache.write game.id, game
-        { game_id: game.id, cards: game.player_hand, dealer_card: game.dealer_hand.cards.first}
+      end
+      { game_data: game.data }
     end
 
     desc 'Hits a card'
     params do
-      requires :game_id, type: Integer, desc: "Game ID"
+      requires :game_action, type: String, desc: "Game Action"
     end
     put :start do
-      game = Rails.cache.read(params[:game_id])
+      game_id = cookies[:game_id]
+      game = Rails.cache.read(game_id)
       if game != nil
-        puts player_total: game.player_hand.total
-        busted = game.player_hit
-        if busted
+        action = params[:game_action]
+        if action == 'hit'
+          puts player_total: game.player_hand.total
+          game.player_hit
+          Rails.cache.write game.id, game
+        elsif action == 'stay'
+          game.dealer_plays
           Rails.cache.delete game.id
-          return game.data
         end
-        Rails.cache.write game.id, game
-        return game.data
+
+        return { game_data: game.data }
       end
       {Error: 'No Game'}
     end
-
-    desc 'Stays'
-    params do
-      requires :game_id, type: Integer, desc: "Game ID"
-    end
-    delete :start do
-      game = Rails.cache.read(params[:game_id])
-      if game != nil
-        game.dealer_plays
-        Rails.cache.write game.id, game
-        return game.data
-      end
-      {Error: 'No Game'}
-    end
-
 
   end
 end
