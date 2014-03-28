@@ -1,5 +1,5 @@
-require 'Deck'
-require 'Hand'
+require 'deck'
+require 'hand'
 
 class Game
   include Virtus.model
