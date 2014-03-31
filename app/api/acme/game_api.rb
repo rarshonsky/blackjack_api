@@ -25,7 +25,6 @@ module Acme
       if game != nil
         action = params[:game_action]
         if action == 'hit'
-          puts player_total: game.player_hand.total
           game.player_hit
           Rails.cache.write game.id, game
         elsif action == 'stay'

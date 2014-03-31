@@ -42,7 +42,7 @@ describe Game do
     end
     it "should play until there is a winner" do
       @game.dealer_plays
-      @game.data.include?('winner').should == true
+      @game.data.to_json.include?('winner').should == true
     end
   end
 
