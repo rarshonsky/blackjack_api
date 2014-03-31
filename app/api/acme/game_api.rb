@@ -1,25 +1,26 @@
 module Acme
-  class Start < Grape::API
+  class GameAPI < Grape::API
     format :json
 
     desc 'Starts the game'
-    get :start do
+    get :game_api do
       game_id = cookies[:game_id]
       game = Rails.cache.read game_id
+      puts game: game
       if game_id == nil || game == nil
         game = Game.new
         game.start
         cookies[:game_id] = game.id
         Rails.cache.write game.id, game
       end
-      { game_data: game.data }
+      game.data.gsub(///, '')
     end
 
     desc 'Hits a card'
     params do
       requires :game_action, type: String, desc: "Game Action"
     end
-    put :start do
+    put :game_api do
       game_id = cookies[:game_id]
       game = Rails.cache.read(game_id)
       if game != nil
@@ -32,8 +33,11 @@ module Acme
           game.dealer_plays
           Rails.cache.delete game.id
         end
+        if game.game_over?
+          Rails.cache.delete game.id
+        end
 
-        return { game_data: game.data }
+        return game.data
       end
       {Error: 'No Game'}
     end

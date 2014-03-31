@@ -30,31 +30,37 @@ class Game
 
   def dealer_plays
     self.player_hand.stay = true
-    player_total = self.player_hand.total
-    while self.dealer_hand.total < player_total && self.dealer_hand.total < 17
+    while self.dealer_hand.total < 17 && !self.player_hand.has_blackjack?
       self.dealer_hit
     end
   end
 
+  def game_over?
+    if (self.player_hand.stay == true && self.dealer_hand.total > 17) || self.player_hand.bust? || self.dealer_hand.bust?
+      return true
+    end
+    false
+  end
+
   def data
     if self.player_hand.has_blackjack? && !self.dealer_hand.has_blackjack?
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Player blackjack'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Player blackjack\"}"
     elsif !self.player_hand.has_blackjack? && self.dealer_hand.has_blackjack?
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Dealer blackjack'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Dealer blackjack\"}"
     elsif !self.player_hand.has_blackjack? && self.dealer_hand.has_blackjack?
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Blackjack push'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Blackjack push\"}"
     elsif self.player_hand.bust?
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Dealer\"}"
     elsif self.dealer_hand.bust?
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Player'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Player\"}"
     elsif !self.player_hand.stay
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_cards: self.dealer_hand.cards.first}
+      "{ \"player_total\":  #{self.player_hand.total.as_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_cards\": #{self.dealer_hand.cards.first.to_json}"
     elsif self.dealer_hand.total > self.player_hand.total
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Dealer'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Dealer\"}"
     elsif self.dealer_hand.total == self.player_hand.total
-      return { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Push'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Push\"}"
     else
-      { player_total:  self.player_hand.total, player_cards: self.player_hand, dealer_card: self.dealer_hand, dealer_total: self.dealer_hand.total, winner: 'Player'}
+      "{ \"player_total\":  #{self.player_hand.total.to_json}, \"player_cards\": #{self.player_hand.to_json}, \"dealer_card\": #{self.dealer_hand.to_json}, \"dealer_total\": #{self.dealer_hand.total.to_json},\" \"winner\": \"Player\"}"
     end
   end
 

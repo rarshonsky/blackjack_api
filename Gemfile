@@ -10,6 +10,7 @@ gem 'grape', github: 'intridea/grape'
 gem 'uglifier', '>= 1.0.3'
 gem 'zip-zip', '~> 0.2'
 gem 'virtus', '1.0.1'
+gem 'json'
 
 
 group :development, :test do

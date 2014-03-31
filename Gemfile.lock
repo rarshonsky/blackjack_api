@@ -200,6 +200,7 @@ DEPENDENCIES
   factory_girl_rails
   grape!
   jquery-rails (~> 3.0.0)
+  json
   rails (~> 4.0.2)
   rspec (~> 2.13.0)
   rspec-rails (~> 2.13.1)

@@ -4,5 +4,5 @@ class API < Grape::API
   mount Acme::Raise
   mount Acme::Protected
   mount Acme::Post
-  mount Acme::Start
+  mount Acme::GameAPI
 end
