@@ -48,4 +48,8 @@ class Hand
     false
   end
 
+  def to_json
+    {:cards => self.cards}
+  end
+
 end

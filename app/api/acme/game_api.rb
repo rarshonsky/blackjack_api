@@ -6,14 +6,13 @@ module Acme
     get :game_api do
       game_id = cookies[:game_id]
       game = Rails.cache.read game_id
-      puts game: game
       if game_id == nil || game == nil
         game = Game.new
         game.start
         cookies[:game_id] = game.id
         Rails.cache.write game.id, game
       end
-      game.data.gsub(///, '')
+      game.data
     end
 
     desc 'Hits a card'
