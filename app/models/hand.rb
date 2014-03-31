@@ -15,7 +15,6 @@ class Hand
     end
 
     aces = self.cards.select {|c| c.sym == 'a'}
-    puts aces: aces
     if aces.size > 0 && total < 12
       aces.first.value = 11
       total += 10
@@ -30,6 +29,23 @@ class Hand
 
   def bust?
     true if total > 21
+  end
+
+  def has_blackjack?
+    if has_ace? && cards.size == 2
+      self.cards.select do |c|
+        return true if c.value == 10
+      end
+    end
+    false
+  end
+
+  def has_ace?
+    aces = self.cards.select {|c| c.sym == 'a'}
+    if aces.size > 0
+      return true
+    end
+    false
   end
 
 end
