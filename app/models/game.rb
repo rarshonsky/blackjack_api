@@ -36,7 +36,7 @@ class Game
   end
 
   def game_over?
-    if (self.player_hand.stay == true && self.dealer_hand.total > 17) || self.player_hand.bust? || self.dealer_hand.bust?
+    if (self.player_hand.stay == true && self.dealer_hand.total > 17) || self.player_hand.bust? || self.dealer_hand.bust? || self.player_hand.has_blackjack? || self.dealer_hand.has_blackjack?
       return true
     end
     false

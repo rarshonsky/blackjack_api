@@ -46,4 +46,19 @@ describe Game do
     end
   end
 
+  describe "game_over?" do
+    before do
+      @game.start
+      @ace = FactoryGirl.build(:ace)
+      @king = FactoryGirl.build(:king)
+      @game.player_hand.cards.clear
+      @game.player_hand.add_card @ace
+      @game.player_hand.add_card @king
+    end
+
+    it "should be game over" do
+      @game.game_over?.should == true
+    end
+  end
+
 end
