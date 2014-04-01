@@ -19,7 +19,7 @@ module Acme
     params do
       requires :game_action, type: String, desc: "Game Action"
     end
-    put :game_api do
+    post :game_api do
       game_id = cookies[:game_id]
       game = Rails.cache.read(game_id)
       if game != nil

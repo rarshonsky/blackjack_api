@@ -12,7 +12,7 @@ describe Acme::GameAPI do
   it 'should hit and have 3 player cards' do
     get '/api/game_api'
     request.cookies['game_id'] = response.cookies['game_id']
-    put '/api/game_api', {:game_action => "hit"}
+    post '/api/game_api', {:game_action => "hit"}
     game_data = JSON.parse(response.body)
     game_data['player_cards']['cards'].size.should == 3
   end
@@ -20,7 +20,7 @@ describe Acme::GameAPI do
   it 'should stay and the dealer should show more than 1 card as well as winner should be declared' do
     get '/api/game_api'
     request.cookies['game_id'] = response.cookies['game_id']
-    put '/api/game_api', {:game_action => "stay"}
+    post '/api/game_api', {:game_action => "stay"}
     game_data = JSON.parse(response.body)
     game_data['player_cards']['cards'].size.should == 2
     game_data['dealer_cards']['cards'].size.should > 1

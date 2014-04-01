@@ -1,6 +1,6 @@
 <h1>Blackjack API</h1>
 <ul>
 <li>To start a game with curl (requires cookies to store game id): curl server/api/game_api -b cook.txt -c cook.txt</li>
-<li>To hit: curl server/api/game_api -b cook.txt -c cook.txt --data "game_action=hit" -X PUT</li>
-<li>To stay: To hit: curl server/api/game_api -b cook.txt -c cook.txt --data "game_action=stay" -X PUT</li>
+<li>To hit: curl server/api/game_api -b cook.txt -c cook.txt --data "game_action=hit" -X POST</li>
+<li>To stay: To hit: curl server/api/game_api -b cook.txt -c cook.txt --data "game_action=stay" -X POST</li>
 </ul>
