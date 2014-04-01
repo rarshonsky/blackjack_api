@@ -42,25 +42,29 @@ class Game
     false
   end
 
+  def base_data
+    { :player_total =>  self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total =>  self.dealer_hand.total.to_json }
+  end
+
   def data
     if self.player_hand.has_blackjack? && !self.dealer_hand.has_blackjack?
-      { :player_total =>  self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total =>  self.dealer_hand.total.to_json, :winner => "Player blackjack" }
+      self.base_data.merge({:winner => "Player blackjack" })
     elsif !self.player_hand.has_blackjack? && self.dealer_hand.has_blackjack?
-      { :player_total =>  self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Dealer blackjack" }
+      self.base_data.merge({ :winner => "Dealer blackjack" })
     elsif !self.player_hand.has_blackjack? && self.dealer_hand.has_blackjack?
-      { :player_total => self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Blackjack push" }
+      self.base_data.merge({:winner => "Blackjack push" })
     elsif self.player_hand.bust?
-      { :player_total =>  self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Dealer"}
+      self.base_data.merge({ :winner => "Dealer"})
     elsif self.dealer_hand.bust?
-      { :player_total => self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Player"}
+      self.base_data.merge({:winner => "Player"})
     elsif !self.player_hand.stay
       { :player_total =>  self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => {:cards => [self.dealer_hand.cards.first.to_json]}}
     elsif self.dealer_hand.total > self.player_hand.total
-      { :player_total => self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Dealer"}
+      self.base_data.merge({ :winner => "Dealer"})
     elsif self.dealer_hand.total == self.player_hand.total
-      { :player_total => self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Push"}
+      self.base_data.merge({ :winner => "Push"})
     else
-      { :player_total => self.player_hand.total.to_json, :player_cards => self.player_hand.to_json, :dealer_cards => self.dealer_hand.to_json, :dealer_total => self.dealer_hand.total.to_json, :winner => "Player"}
+      self.base_data.merge({ :winner => "Player"})
     end
   end
 
