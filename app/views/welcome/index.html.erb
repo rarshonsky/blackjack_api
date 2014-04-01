@@ -1,6 +1,6 @@
-<h1>Grape Mounted on Rails 4</h1>
+<h1>Blacjack API</h1>
 <ul>
-<li><a href='/api/start'>Start Game</a></li>
-<li><a href='/api/ping'>Ping</a></li>
-<li><a href='/api/protected/ping'>Ping w/ Basic Auth</a> (username: <em>username</em>, password: <em>password</em>)</li>
+<li>To start a game with curl (requires cookies to store game id): curl server:3000/api/game_api -b cook.txt -c cook.txt</li>
+<li>To hit: curl server:3000/api/game_api -b cook.txt -c cook.txt --data "game_action=hit" -X PUT</li>
+<li>To stay: To hit: curl server:3000/api/game_api -b cook.txt -c cook.txt --data "game_action=stay" -X PUT</li>
 </ul>
