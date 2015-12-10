@@ -14,12 +14,13 @@ describe Deck do
     end
   end
 
+  #TODO check if shuffle method was called -- this test could fail if a random shuffle returns the unshuffled deck (pretty unlikely)
   describe "shuffle" do
     it "should shuffle the deck" do
       @deck.start
+      pre_shuffle_card = @deck.cards
       @deck.shuffle
-      @deck.cards.first.value.should_not == 2
-      @deck.cards.last.value.should_not == 1
+      @deck.cards.first.value.should_not == pre_shuffle_card
     end
   end
   

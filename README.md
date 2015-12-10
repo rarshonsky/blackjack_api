@@ -1,27 +1,16 @@
-Grape on Rails
-==============
+#Blackjack API
 
-[![Build Status](https://secure.travis-ci.org/dblock/grape-on-rails.png)](http://travis-ci.org/dblock/grape-on-rails)
+* To start a game:
+```curl localhost:3000/api/game_api -b cook.txt -c cook.txt ```
 
-A [Grape](http://github.com/intridea/grape) API mounted on Rails.
+* To hit:
+```curl localhost:3000/api/game_api -b cook.txt -c cook.txt --data "game_action=hit" -X POST```
 
-* [ping](app/api/acme/ping.rb): a hello world `GET` API
-* [post](app/api/acme/post.rb): post JSON data
-* [raise](app/api/acme/raise.rb): raise an error, Rails handling exceptions
-* [protected](app/api/acme/protected.rb): API protected with rudimentary Basic Authentication
+* To stay:
+```curl localhost:3000/api/game_api -b cook.txt -c cook.txt --data "game_action=stay" -X POST```
 
-See
----
+* Run server locally:
+```rails s```
 
-An instance of this app is running on [grape-on-rails.herokuapp.com](http://grape-on-rails.herokuapp.com).
-
-Run
----
-
-```
-bundle install
-rails s
-```
-
-Try http://localhost:3000/api/ping or http://localhost:3000/api/protected/ping with _username_ and _password_.
-
+* Run specs:
+```rspec ```
